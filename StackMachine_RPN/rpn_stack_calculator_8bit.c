@@ -3,11 +3,11 @@
 #include <string.h>
 
 #define STACK_SIZE 100
-int stack[STACK_SIZE];
+unsigned char stack[STACK_SIZE];
 int stack_pointer = -1;
 
 
-void push(int value)
+void push(unsigned char value)
 {
     if(stack_pointer >= STACK_SIZE - 1)
     {
@@ -22,7 +22,7 @@ void push(int value)
 }
 
 
-int pop()
+unsigned char pop()
 {
     if(stack_pointer < 0)
     {
@@ -31,7 +31,7 @@ int pop()
     }
     else
     {
-        int value = stack[stack_pointer];
+        unsigned char value = stack[stack_pointer];
         stack_pointer -= 1;
         return value;
     }
@@ -55,9 +55,9 @@ int main(int argc, char *argv[])
                 printf("Not enough operands for addition!\n");
                 return 1;
             }
-            int operand_2 = pop();
-            int operand_1 = pop();
-            int result = operand_1 + operand_2;
+            unsigned char operand_2 = pop();
+            unsigned char operand_1 = pop();
+            unsigned char result = operand_1 + operand_2;
             push(result);
         }
         else if(strcmp(argv[i], "-") == 0)
@@ -68,9 +68,9 @@ int main(int argc, char *argv[])
                 printf("Not enough operands for subtraction!\n");
                 return 1;
             }
-            int operand_2 = pop();
-            int operand_1 = pop();
-            int result = operand_1 - operand_2;
+            unsigned char operand_2 = pop();
+            unsigned char operand_1 = pop();
+            unsigned char result = operand_1 - operand_2;
             push(result);
         }
         else if(strcmp(argv[i], "*") == 0)
@@ -81,9 +81,9 @@ int main(int argc, char *argv[])
                 printf("Not enough operands for multiplication!\n");
                 return 1;
             }
-            int operand_2 = pop();
-            int operand_1 = pop();
-            int result = operand_1 * operand_2;
+            unsigned char operand_2 = pop();
+            unsigned char operand_1 = pop();
+            unsigned char result = operand_1 * operand_2;
             push(result);
         }
         else if(strcmp(argv[i], "/") == 0)
@@ -94,20 +94,21 @@ int main(int argc, char *argv[])
                 printf("Not enough operands for division!\n");
                 return 1;
             }
-            int operand_2 = pop();
-            int operand_1 = pop();
+            unsigned char operand_2 = pop();
+            unsigned char operand_1 = pop();
             if(operand_2 == 0)
             {
                 printf("Error: division by 0!\n");
                 return 1;
             }
-            int result = operand_1 / operand_2;
+            unsigned char result = operand_1 / operand_2;
             push(result);
         }
         else
         {
             int value = atoi(argv[i]);
-            push(value);
+            unsigned char unsigned_char_value = (unsigned char)value;
+            push(unsigned_char_value);
         }
     }
     if(stack_pointer != 0)
@@ -115,7 +116,7 @@ int main(int argc, char *argv[])
         printf("Error: Too many operands remaining on the stack!\n");
         return 1;
     }
-    int final_result = stack[stack_pointer];
-    printf("final result: %d\n", final_result);
+    unsigned char final_result = stack[stack_pointer];
+    printf("final result: %u\n", final_result);
     return 0;
 }
